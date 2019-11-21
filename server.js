@@ -52,6 +52,10 @@ function createSearch(req, res){
 function Book(info){
   console.log('volume info: ',info.title);
   this.title = info.title || 'No title available';
+  this.authors = info.authors;
+  this.publisher = info.publisher;
+  this.publishedate = info.publishedDate;
+  this.description = info.description;
 }
 
 //DON'T FORGET TO HANDLE ERRORS!!!!
