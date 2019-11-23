@@ -1,7 +1,7 @@
 {
   "name": "book-app",
   "version": "1.0.0",
-  "description": "**Author**: Your Name Goes Here **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)",
+  "description": "BOOK APP",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/rjimmy2512/book-app.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -19,11 +18,11 @@
   },
   "homepage": "https://github.com/rjimmy2512/book-app#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
-    "method-override": "^3.0.0",
     "pg": "^7.14.0",
-    "superagent": "^5.1.0"
+    "superagent": "^5.1.1"
   }
 }

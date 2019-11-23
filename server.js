@@ -1,9 +1,13 @@
 'use strict';
 
 const express = require('express');
+
 //const path = require('path');
+const cors = require('cors');
 const app = express();
+app.use(cors());
 const superagent = require('superagent');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +22,10 @@ app.use(express.urlencoded({extended:true}));
 
 
 //Routes
+
+// API Route
+app.get('/books', getBooks);
+
 // Test  Route
 app.get('/hello', (req, res) => {
   res.render('pages/index');
@@ -25,7 +33,7 @@ app.get('/hello', (req, res) => {
 
 // Other Routes
 app.get('/', newSearch);
-app.post('/searches', createSearch);
+app.post('/searches', getBooks);
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
 
@@ -34,27 +42,33 @@ function newSearch(req, res){ //renders the index.ejs file in pages dir
   res.render('pages/index');
 }
 
-function createSearch(req, res){
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=search+terms'; 
-
-  //these if statements determine the rest of the URL
-  if(req.body.search[1] === 'title' ) {url += `intitle:${req.body.search[0]}`;}
-  if(req.body.search[1] === 'author' ) {url += `inauthor:${req.body.search[0]}`;}
-
+//
+function getBooks(request, response) {
+  // console.log(request);
+  let url = `https://www.googleapis.com/books/v1/volumes?q=`;
+  if(request.body.search[1] === 'title' ) {url += `intitle:${request.body.search[0]}`;}
+  if(request.body.search[1] === 'author' ) {url += `inauthor:${request.body.search[0]}`;}
   superagent.get(url)
-    //map over the info from superagent, inside the items array, and create a new Book object
-    //from each result
+  
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    //take that array of Book objects and pass it to the searches page when rendered
-    .then(results => res.render('pages/searches/show', {searchResults:results}));
+    .then(results => response.render('pages/searches/show', {searchResults:results}))
+    .catch(() => {
+      errorHandler('Something went wrong', request, response);
+    });
+}
+
+
+// error handler
+function errorHandler(error, request, response) {
+  response.status(500).send(error);
 }
 
 //Book constructor
 function Book(info){
-  console.log('volume info: ',info.title);
   this.title = info.title || 'No title available';
-  this.authors = info.authors;
-  this.description = info.description;
+  this.authors = info.authors || 'No author';
+  this.description = info.description || 'No Description';
+  this.imgurl = info.thumbnail;
 }
 
 //DON'T FORGET TO HANDLE ERRORS!!!!
