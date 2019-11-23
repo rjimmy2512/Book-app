@@ -5,13 +5,13 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 
 //tells express to use the built-in rules for ejs
 app.set('view engine', 'ejs');
 
 //tells express to find static files (like css) in the public dir
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 
 //tells express to read all incoming body info (from the Books api)
 app.use(express.urlencoded({extended:true}));
