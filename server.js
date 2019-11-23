@@ -35,7 +35,8 @@ function newSearch(req, res){ //renders the index.ejs file in pages dir
 }
 
 function createSearch(req, res){
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=search+terms'; //this is not the full URL
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=search+terms'; 
+
   //these if statements determine the rest of the URL
   if(req.body.search[1] === 'title' ) {url += `intitle:${req.body.search[0]}`;}
   if(req.body.search[1] === 'author' ) {url += `inauthor:${req.body.search[0]}`;}
@@ -53,8 +54,6 @@ function Book(info){
   console.log('volume info: ',info.title);
   this.title = info.title || 'No title available';
   this.authors = info.authors;
-  this.publisher = info.publisher;
-  this.publishedate = info.publishedDate;
   this.description = info.description;
 }
 
