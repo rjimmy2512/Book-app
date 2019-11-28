@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/public/styles/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/public/styles/base.css" type="text/css" />
+    <link rel="stylesheet" href="public/styles/icons.css" type="text/css" />
+    <link rel="stylesheet" href="/public/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/public/styles/modules.css" type="text/css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -8,11 +13,15 @@
 </head>
 <body>
     <main>
+        <div class="book-info">
         <% searchResults.forEach( book => { %>
+            <img src="<%= book.img %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
             <h3><%= book.title %></h3>
-            <p><%= book.authors %><p> 
-            <p><%= book.description %></p>
+            <p1><%= book.authors %><p1> 
+            <p2><%= book.description %></p2>
+
         <% }) %>
+        </div>
     </main>
 </body>
 </html>

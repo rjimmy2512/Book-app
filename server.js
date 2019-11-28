@@ -34,7 +34,6 @@ app.get('/hello', (req, res) => {
 // Other Routes
 app.get('/', newSearch);
 app.post('/searches', getBooks);
-app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
 
 //Helper Functions
@@ -45,7 +44,7 @@ function newSearch(req, res){ //renders the index.ejs file in pages dir
 //
 function getBooks(request, response) {
   // console.log(request);
-  let url = `https://www.googleapis.com/books/v1/volumes?q=`;
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=';
   if(request.body.search[1] === 'title' ) {url += `intitle:${request.body.search[0]}`;}
   if(request.body.search[1] === 'author' ) {url += `inauthor:${request.body.search[0]}`;}
   superagent.get(url)
@@ -68,9 +67,13 @@ function Book(info){
   this.title = info.title || 'No title available';
   this.authors = info.authors || 'No author';
   this.description = info.description || 'No Description';
-  this.imgurl = info.thumbnail;
+  this.img = info.imageLinks.thumbnail;
 }
 
 //DON'T FORGET TO HANDLE ERRORS!!!!
+
+app.get('*', (req, res) => res.status(404).send('This route does not exist'));
+
+
 
 app.listen(PORT, () => console.log(`server up on ${PORT}`));

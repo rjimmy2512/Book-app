@@ -1,40 +1,130 @@
 body {
-  background-color: black;
-}
-
-main {
-  background-color: gray;
+  text-align: center;
   font: 18px Arial, sans-serif;
+  background-color: #585656;
 }
 
 main h4 {
-background-color: rgb(82, 82, 82);
-color: white;
-font: 18px Arial, sans-serif;
-height: 50px;
-text-align: center;
-padding: initial
-}
-
-main input {
-background-color: whitesmoke;
-font: 18px Arial, sans-serif;
-height: 50px;
-
-}
-
-main span {
-background-color: rgb(216, 216, 216);
-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #262525;
+  width: 100%;
+  height: 50px;
+  margin-bottom: auto;
 }
 
 button {
   background-color: black;
   color: white;
   font: 18px Arial, sans-serif;
-  height: 50px;
+  width: 100%;
+  display: center;
+  padding: 1em;
+  margin-top: 5px;
 }
 
 button:hover {
   color: green;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: center;
+  margin: auto;
+}
+
+input {
+  padding: 1em;
+  font: 18px Arial, sans-serif;
+  color: green;
+  margin: 5px 0px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font: 18px Arial, sans-serif;
+}
+
+fieldset {
+  background-color: darkgray;
+}
+
+span {
+  width: 70px;
+  text-align: left;
+}
+
+
+/* At loading search results */
+
+main div {
+  background-color: #97e7d6;
+}
+
+img {
+  display: flex;
+  margin: auto;
+  padding: 20px;
+  width: 25%;
+}
+
+/* .book-info {
+  width: 80%;
+  margin: 3% auto 1.5% auto;
+  box-sizing: border-box;
+  background-color: #FBDB53;
+  padding: 10% 9% 5% 9%;
+  box-shadow: 7px 10px #FFD02E;
+  border-radius: 10px; 
+} */
+
+
+h3 {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.3em;
+  color: #3D3D3D;
+  margin-bottom: 1%;
+}
+
+p1 {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #3D3D3D;
+  margin-bottom: 6%;
+}
+
+p2 {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+  color: #6b3e3e;
+  line-height: 1.5em;
+  margin-bottom: 5%;
+  height: 10px;
+  overflow: hidden;
+  padding: 5px 15px;
+}
+
+p2:hover {
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 1000px) {
+  nav.menu {
+    width: 100%;
+		left: -100%; 
+  }
+  img {
+    width: 30%;
+  }
+
+  main div {
+    width: 65%;
+  }
 }
