@@ -12,16 +12,16 @@
     <title>Document</title>
 </head>
 <body>
-    <main>
-        <div class="book-info">
-        <% searchResults.forEach( book => { %>
+   <main class="search-container">
+        <div><% searchResults.forEach( book => { %>
             <img src="<%= book.img %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
-            <h3><%= book.title %></h3>
-            <p1><%= book.authors %><p1> 
-            <p2><%= book.description %></p2>
-
-        <% }) %>
-        </div>
+            <h3 class="title"><%= book.title %></h3>
+            <p1 class="author"><%= book.authors %></p1> 
+            <p2 class="publishDate"><%= book.publishDate %></p2>
+            <p3 class="identifier"><%= book.identifier %></p3>
+            <p4 class="isbn"><%= book.isbn %></p4>
+            <p5 class="description"><%= book.description %></p5>
+        </div><% }) %>
     </main>
 </body>
 </html>

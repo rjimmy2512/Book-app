@@ -1,8 +1,6 @@
 'use strict';
 
 const express = require('express');
-
-//const path = require('path');
 const cors = require('cors');
 const app = express();
 app.use(cors());
@@ -11,17 +9,17 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 
-//tells express to use the built-in rules for ejs
+// Tells express to use the built-in rules for ejs
 app.set('view engine', 'ejs');
 
-//tells express to find static files (like css) in the public dir
+// Tells express to find static files (like css) in the public dir
 app.use('/public', express.static('public'));
 
-//tells express to read all incoming body info (from the Books api)
+// Tells express to read all incoming body info (from the Books api)
 app.use(express.urlencoded({extended:true}));
 
 
-//Routes
+//ROUTES
 
 // API Route
 app.get('/books', getBooks);
@@ -36,14 +34,12 @@ app.get('/', newSearch);
 app.post('/searches', getBooks);
 
 
-//Helper Functions
-function newSearch(req, res){ //renders the index.ejs file in pages dir
+// Helper Functions
+function newSearch(req, res) { //renders the index.ejs file in pages dir
   res.render('pages/index');
 }
 
-//
 function getBooks(request, response) {
-  // console.log(request);
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
   if(request.body.search[1] === 'title' ) {url += `intitle:${request.body.search[0]}`;}
   if(request.body.search[1] === 'author' ) {url += `inauthor:${request.body.search[0]}`;}
@@ -52,28 +48,28 @@ function getBooks(request, response) {
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults:results}))
     .catch(() => {
-      errorHandler('Something went wrong', request, response);
+      errorHandler('Something went wrong, Please try again.', request, response);
     });
 }
 
-
-// error handler
+// Error handler
 function errorHandler(error, request, response) {
   response.status(500).send(error);
 }
 
-//Book constructor
+// Book constructor
 function Book(info){
   this.title = info.title || 'No title available';
   this.authors = info.authors || 'No author';
   this.description = info.description || 'No Description';
   this.img = info.imageLinks.thumbnail;
+  this.publishDate = info.publishedDate;
+  this.isbn = info.type || 'No ISBN available';
+  this.identifier = info.identifier;
 }
 
-//DON'T FORGET TO HANDLE ERRORS!!!!
-
+// Handling Errors!!!!
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
-
 
 
 app.listen(PORT, () => console.log(`server up on ${PORT}`));
