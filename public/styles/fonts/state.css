@@ -1,0 +1,16 @@
+
+@media screen and (min-width: 1000px) {
+  
+  nav.menu {
+    width: 100%;
+    left: -100%;
+ }
+
+  img {
+    width: 25%;
+ }
+
+  main div {
+    width: 100%;
+  }
+}
