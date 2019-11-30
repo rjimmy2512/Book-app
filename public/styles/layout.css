@@ -43,3 +43,35 @@ img {
   padding: 20px;
   width: 25%;
 }
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: center;
+  margin: auto;
+}
+
+input {
+  padding: 1em;
+  font: 18px Arial, sans-serif;
+  color: green;
+  margin: 5px 0px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font: 18px Arial, sans-serif;
+}
+
+fieldset {
+  background-color: darkgray;
+}
+
+span {
+  width: 70px;
+  text-align: left;
+}
