@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../layout/head') %>
+</head>
+<body>
+   <main class="search-container">
+        <div><% searchResults.forEach( book => { %>
+            <img src="<%= book.img %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
+            <h3 class="title"><%= book.title %></h3>
+            <p1 class="author"><%= book.authors %></p1> 
+            <p2 class="description"><%= book.description %></p2>
+            <p3 class="isbn"><%= book.isbn %></p3>
+            <p4 class="bookshelf"><%= bookshelf %></p4>
+        </div><% }) %>
+    </main>
+</body>
+</html>
