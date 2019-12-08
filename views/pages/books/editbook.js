@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Error</title>
+  <title>Add</title>
   <%- include('partials/head') %>
 </head>
 <body>
@@ -9,7 +9,7 @@
     <%- include('partials/header') %>
   </header>
   <main>
-    <h1>You have encountered an error. Please navigate to a previous page and try again. Thank you.</h1>
+    <%- include('partials/form', {formAction: 'add', book: [''], shelves: shelves}) %>
   </main>
   <footer>
     <%- include('partials/footer') %>

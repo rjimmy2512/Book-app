@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('../layout/head') %>
-</head>
-<body>
-   <main class="search-container">
-        <div><% searchResults.forEach( book => { %>
-            <img src="<%= book.img %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
-            <h3 class="title"><%= book.title %></h3>
-            <p1 class="author"><%= book.authors %></p1> 
-            <p2 class="description"><%= book.description %></p2>
-            <p3 class="isbn"><%= book.isbn %></p3>
-            <p4 class="bookshelf"><%= bookshelf %></p4>
-        </div><% }) %>
-    </main>
-</body>
-</html>
+<section class="detail-partial" >
+    <img src="<%= book.image %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
+    <h2 class="title"><%= book.title %> <h2>
+    <% if(book.authors && book.authors.length > 0){ %>
+      <h2 class="author"><%= book.authors.join(', ') %></h2>
+    <% } %>
+    <% if(route !== '/'){ %>
+      <p class="description"><%= book.description %></p>
+      <p class="isbn">ISBN: <%= book.isbn %></p>
+      <p class="shelf">Bookshelf: <%= book.shelf %></p>
+    <% }; %>
+    <% if(route === '/book'){ %>
+      <form action="/book/<%=book.id%>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="id" value="<%= book.id %>">
+        <button type="submit">Delete Book</button>
+      </form>
+    <% }; %>
+  </section>

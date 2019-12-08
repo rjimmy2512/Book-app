@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Collection</title>
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <header>
+      <%- include('partials/header') %>
+    </header>
+    <main>
+      <h4>Search by Title or Author</h4>
+      <form action="/searchresults" method="post">
+        <input class="white-box search-textbox" type="text" name="search" placeholder="Enter a title or author" required>
+        <fieldset>
+          <label class="white-box" for="title">
+            <span>Title</span>
+            <input type="radio" name="search" value="title" required>
+          </label>
+          <label class="white-box" for="author">
+            <span>Author</span>
+            <input type="radio" name="search" value="author" required>
+          </label>
+        </fieldset>
+          <button type="submit">Search the Google Books API</button>
+      </form>
+    </main>
+    <footer>
+      <%- include('partials/footer') %>
+    </footer>
+  </body>
+</html>
