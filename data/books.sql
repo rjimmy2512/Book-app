@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 DROP TABLE IF EXISTS books;
 
 CREATE TABLE IF NOT EXISTS books (
@@ -27,6 +28,9 @@ INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUE
   'Alice Love is twenty-nine, crazy about her husband, and pregnant with her first child. So imagine Alice''s surprise when she comes to on the floor of a gym (a gym! She HATES the gym) and is whisked off to the hospital where she discovers the honeymoon is truly over—she''s getting divorced, she has three kids, and she''s actually 39 years old. Alice must reconstruct the events of a lost decade, and find out whether it''s possible to reconstruct her life at the same time. She has to figure out why her sister hardly talks to her, and how is it that she''s become one of those super skinny moms with really expensive clothes. Ultimately, Alice must discover whether forgetting is a blessing or a curse, and whether it''s possible to start over...',
   'Fiction'
 );
+=======
+DROP TABLE IF EXISTS books, bookshelves;
+>>>>>>> 8d89d6d2e931600e8998fa2882c22bf13578c621
 
 INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES (
   'Unsouled',
@@ -37,6 +41,7 @@ INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUE
   'SciFi'
 );
 
+<<<<<<< HEAD
 INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES (
   'The Stand',
   'Stephen King',
@@ -98,4 +103,16 @@ INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUE
   'http://books.google.com/books/content?id=meVxCwAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api',
   'The main events of the novel take place in the summer of 1922. Nick Carraway, a Yale graduate and World War I veteran from the Midwest – who serves as the novel''s narrator – takes a job in New York as a bond salesman. He rents a small house on Long Island, in the (fictional) village of West Egg, next door to the lavish mansion of Jay Gatsby, a mysterious millionaire who holds extravagant parties but does not participate in them. Nick drives around the bay to East Egg for dinner at the home of his cousin, Daisy Fay Buchanan, and her husband, Tom, a college acquaintance of Nick''s. They introduce Nick to Jordan Baker, an attractive, cynical young golfer with whom Nick begins a romantic relationship. She reveals to Nick that Tom has a mistress, Myrtle Wilson, who lives in the "valley of ashes": an industrial dumping ground between West Egg and New York City. Not long after this revelation, Nick travels to New York City with Tom and Myrtle to an apartment they keep for their affair. At the apartment, a vulgar and bizarre party takes place. It ends with Tom breaking Myrtle''s nose after she annoys him by saying Daisy''s name several times.',
   'Classics'
+=======
+CREATE TABLE IF NOT EXISTS books (
+    id SERIAL PRIMARY KEY,
+    author VARCHAR(200),
+    title VARCHAR(300),
+    isbn VARCHAR(255),
+    image_url VARCHAR(300),
+    bookshelf_id INT REFERENCES bookshelves(id),
+    description TEXT,
+    status bool,
+    category VARCHAR(255)
+>>>>>>> 8d89d6d2e931600e8998fa2882c22bf13578c621
 );
