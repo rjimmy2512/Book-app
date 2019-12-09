@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>results</title>
-    <%- include('partials/head') %>
-  </head>
+
+<head>
+    <title>Book App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/modules.css">
+</head>
+<header>
+    <h1>BEST BOOKS</h1>
+</header>
+
 <body>
-  <header>
-      <%- include('./partials/header') %>
-  </header>
-  <main>
-    <% searchResults.forEach(book=> {%>
-    <section class="book-info">
-        <%- include('partials/detail', {book: book}) %>
-    </section>
-    <%);}%>
-  </main>
-  <footer>
-    <%- include('partials/footer') %>
-  </footer></body>
+    <main>
+        <h4 class="flash">Search by title or author</h4>
+        <form action="/searches" method="post">
+            <input type="text" style="width: 400px;" name="search" placeholder="Enter a title or author" required>
+            <fieldset>
+                <div class="button">
+                    <label for="title">
+                        <span>Title</span>
+                        <input type="radio" name="search" value="title" required>
+                    </label>
+                </div>
+                <div class="button">
+                    <label for="author">
+                        <span>Author</span>
+                        <input type="radio" name="search" value="author" required>
+                    </label>
+                </div>
+            </fieldset>
+            <button type="submit">Seach for your Book</button>
+        </form>
+    </main>
+</body>
+
 </html>
