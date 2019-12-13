@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%- include('../layout/head') %>
+        <title>Book Collection</title>
+        <link rel="stylesheet" href="/public/styles/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/public/styles/base.css" type="text/css" />
+        <link rel="stylesheet" href="public/styles/icons.css" type="text/css" />
+        <link rel="stylesheet" href="/public/styles/layout.css" type="text/css" />
+        <link rel="stylesheet" href="/public/styles/modules.css" type="text/css" />
     </head>
     <body>
         <header>
-          <%- include('layout/header') %>
+          <div class="top">
+            <a href="#" class="menu_icon"><i class="material-icons">dehaze</i></a>
+        </div>
+        <h1>Best Books!</h1>
         </header>
         <main>
           <a href="/search">Search</a>
@@ -13,13 +21,27 @@
           <h4>Books in list: <%= searchResults.rows.length %></h4>
             <% searchResults.rows.forEach( book => { %>
                   <section class="book-info">
-                    <%- include('books/detail', {book: book}) %>
+                    <section class="detail-partial" >
+                      <img src="<%= book.image %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
+                      <h2 class="title"><%= book.title %> </h2>
+                      <h2 class="author"><%= book.authors %> </h2>
+                      <p class="description"><%= book.description %></p>
+                      <p class="isbn"><%= book.isbn %></p>
+                      <p class="shelf">Bookshelf: <%= book.bookshelf %></p>
+                      <form action="/book/<%=book.id%>" method="post">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="id" value="<%= book.id %>">
+                        <button type="submit">Delete Book</button>
+                      </form>
+                    </section>
+                  </section>
+                  </section>
                     <button><a href='/book/<%= book.id %>'>View details</a></button>
                   </section>
                 <% }) %>
               </main>
               <footer>
-                <%- include('layout/footer') %>
+               
               </footer>
             </body>
 </html>

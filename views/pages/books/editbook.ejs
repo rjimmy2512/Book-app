@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Error</title>
-  <title>Book Collection</title>
+  <title>Add</title>
   <link rel="stylesheet" href="/public/styles/reset.css" type="text/css" />
   <link rel="stylesheet" href="/public/styles/base.css" type="text/css" />
   <link rel="stylesheet" href="public/styles/icons.css" type="text/css" />
@@ -11,13 +10,13 @@
 </head>
 <body>
   <header>
-    <div class="top">
-      <a href="#" class="menu_icon"><i class="material-icons">dehaze</i></a>
-  </div>
-  <h1>Best Books!</h1>
+  <div class="top">
+    <a href="#" class="menu_icon"><i class="material-icons">dehaze</i></a>
+</div>
+<h1>Best Books!</h1>
   </header>
   <main>
-    <h1>You have encountered an error. Please navigate to a previous page and try again. Thank you.</h1>
+    <%- include('partials/form', {formAction: 'add', book: [''], bookshelves: shelves}) %>
   </main>
   <footer>
     

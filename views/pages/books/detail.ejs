@@ -7,7 +7,7 @@
     <% if(route !== '/'){ %>
       <p class="description"><%= book.description %></p>
       <p class="isbn">ISBN: <%= book.isbn %></p>
-      <p class="shelf">Bookshelf: <%= book.shelf %></p>
+      <p class="shelf">Bookshelf: <%= book.bookshelf %></p>
     <% }; %>
     <% if(route === '/book'){ %>
       <form action="/book/<%=book.id%>" method="post">

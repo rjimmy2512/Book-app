@@ -41,7 +41,7 @@ app.get('/', buildIndex);
 app.get('/search', newSearch);
 app.post('/searchresults', searchAPI);
 app.get('/books/:book_id', getOneBook);
-app.get('/add', (req, res) => res.render('pages/editbook', {shelves: shelfCategories}));
+app.get('/add', (req, res) => res.render('pages/editbook', {bookshelves: shelfCategories}));
 app.post('/add', addNewBook);
 
 app.put('/books/:book_id', updateBook);
@@ -49,9 +49,9 @@ app.put('/books/:book_id', updateBook);
 app.delete('/books/:id', deleteBook);
 
 function updateBook(req, res) {
-  let sql = 'UPDATE books SET image=$1, title=$2, authors=$3, description=$4, shelf=$5, isbn=$6 WHERE id=$7;';
-  let { image, title, authors, description, shelf, isbn } = req.body;
-  let values = [image, title, [authors], description, [shelf], isbn, req.params.book_id];
+  let sql = 'UPDATE books SET image=$1, title=$2, authors=$3, description=$4, bookshelf=$5, isbn=$6 WHERE id=$7;';
+  let { image, title, authors, description, bookshelf, isbn } = req.body;
+  let values = [image, title, [authors], description, [bookshelf], isbn, req.params.book_id];
   client.query(sql, values) 
   .then(res.redirect(`/book/${req.params.book_id}`));
 }
@@ -59,8 +59,8 @@ function updateBook(req, res) {
 //Helper Functions
 async function addNewBook(req,res){
   let r = req.body;
-  let sql = 'INSERT INTO books(image,title,authors,description,shelf,isbn) VALUES($1,$2, $3, $4, $5, $6) RETURNING id;';
-  let values = [r.image, r.title, [r.authors], r.description, [r.shelf], r.isbn];
+  let sql = 'INSERT INTO books(image,title,authors,description,bookshelf,isbn) VALUES($1,$2, $3, $4, $5, $6) RETURNING id;';
+  let values = [r.image, r.title, [r.authors], r.description, [r.bookshelf], r.isbn];
   let result = await client.query(sql, values)
   .then( result => {
       if(result.rowCount > 0){
@@ -73,7 +73,7 @@ async function addNewBook(req,res){
 async function getOneBook(req,res){
   let sql = 'SELECT * FROM books WHERE id=$1;'
   let result = await client.query(sql,[req.params.book_id]);
-  res.render('searches/new', {searchResults:result.rows, route: '/book', shelves: shelfCategories});
+  res.render('searches/new', {searchResults:result.rows, route: '/book', bookshelves: shelfCategories});
 }
 
 
@@ -108,35 +108,26 @@ async function buildIndex(req,res){
   res.render('pages/index', {searchResults:result, route: '/'});
 }
 
+
 function newSearch(req, res){ //renders the search.ejs file in pages dir 
-  res.render('searches/search')
+    res.render('pages/searches/search');
 }
 
+
 async function searchAPI(req, res){
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=';  //this is not the full URL
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=';  
   //these if statements determine the rest of the URL
   if(req.body.search[1] === 'title' ) {url += `intitle:${req.body.search[0]}`;}
   if(req.body.search[1] === 'author' ) {url += `inauthor:${req.body.search[0]}`;}
   try{
     //wait for the result of the API call
     let result = await superagent.get(url);
-    console.log('result.body.items: ', result.body.items);
-    console.log('********************~~~~~~~~~~~~~~~~~*********************~~~~~~~~~~~~~~~~~*********************~~~~~~~~~~~~~~~~~*********************');
-    console.log('result.body.items[3].volumeInfo.categories: ', result.body.items[0].volumeInfo.categories);
-
-    //instantiate book objects, and assign those objects to a new array
     let bookArray = result.body.items.map(bookResult => new Book(bookResult.volumeInfo));
-    //console log the first book to make sure schema is ok
-    console.log('bookArray[0]): ', bookArray[0]);
-
     //pass the array of book objects back to the response
-    res.render('searches/searchresults', {searchResults:bookArray, route: '/searchresults', shelves: shelfCategories});
+    res.render('pages/searches/searchresults', {searchResults:bookArray, route: 'pages/searches', bookshelves: shelfCategories});
   }
   catch{
-    //if something goes wrong, say something.
-    // if(result.body.items.length === 0 ){
-      errorHandler(`No books with the ${req.body.search[1]} ${req.body.search[0]} was found.`, req, res);
-    // }
+     errorHandler(`No books with the ${req.body.search[1]} ${req.body.search[0]} was found.`, req, res);
   }
 }
 
@@ -164,7 +155,7 @@ function Book(info){
   if(info.industryIdentifiers.length === 1){
     this.isbn = info.industryIdentifiers[0].identifier;
   }
-  this.shelf = info.categories || 'No bookshelf specified';
+  this.bookshelf = info.categories || 'No bookshelf specified';
 }
 
 //DON'T FORGET TO HANDLE ERRORS!!!!

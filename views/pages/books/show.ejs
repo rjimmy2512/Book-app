@@ -2,18 +2,47 @@
 <html lang="en">
 <head>
   <title>Document</title>
-  <%- include('partials/head') %>
+  <title>Book Collection</title>
+  <link rel="stylesheet" href="/public/styles/reset.css" type="text/css" />
+  <link rel="stylesheet" href="/public/styles/base.css" type="text/css" />
+  <link rel="stylesheet" href="public/styles/icons.css" type="text/css" />
+  <link rel="stylesheet" href="/public/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/public/styles/modules.css" type="text/css" />
 </head>
 <body>
   <header>
-      <%- include('partials/header') %>  
+    <div class="top">
+      <a href="#" class="menu_icon"><i class="material-icons">dehaze</i></a>
+  </div>
+  <h1>Best Books!</h1>
   </header>
   <main>
     <h4>Search Results</h4>
-    <%- include('partials/detail', {book: book}) %>
+    <section class="detail-partial" >
+        <img src="<%= book.image %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
+        <h2 class="title"><%= book.title %> <h2>
+        <% if(book.authors && book.authors.length > 0){ %>
+          <h2 class="author"><%= book.authors.join(', ') %></h2>
+        <% } %>
+        <% if(route !== '/'){ %>
+          <p class="description"><%= book.description %></p>
+          <p class="isbn">ISBN: <%= book.isbn %></p>
+          <p class="shelf">Bookshelf: <%= book.bookshelf %></p>
+        <% }; %>
+        <% if(route === '/book'){ %>
+          <form action="/book/<%=book.id%>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="id" value="<%= book.id %>">
+            <button type="submit">Delete Book</button>
+          </form>
+        <% }; %>
+      </section>
+        </form>
+      <% }; %>
+    </section>
   </main>
   <footer>
-      <%- include('partials/footer') %>
+      
   </footer>
 </body>
 </html>
