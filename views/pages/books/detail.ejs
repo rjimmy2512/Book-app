@@ -1,19 +1,28 @@
-<section class="detail-partial" >
-    <img src="<%= book.image %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
-    <h2 class="title"><%= book.title %> <h2>
-    <% if(book.authors && book.authors.length > 0){ %>
-      <h2 class="author"><%= book.authors.join(', ') %></h2>
-    <% } %>
-    <% if(route !== '/'){ %>
-      <p class="description"><%= book.description %></p>
-      <p class="isbn">ISBN: <%= book.isbn %></p>
-      <p class="shelf">Bookshelf: <%= book.shelf %></p>
-    <% }; %>
-    <% if(route === '/book'){ %>
-      <form action="/book/<%=book.id%>" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input type="hidden" name="id" value="<%= book.id %>">
-        <button type="submit">Delete Book</button>
-      </form>
-    <% }; %>
-  </section>
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <p><a href="/">Home</a></p>
+  <h1>This is the Details Page</h1>
+  <ul>
+    <% bookDetail.forEach( book => { %>
+    <li>id : <%= book.id %></li>
+    <li>Title : <%= book.title %></li>
+    <li>Description: <%= book.description_book%></li>
+    <form action="/add/<%=book.id%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="id" value="<%= book.id %>">
+      <button type="submit">Delete Book</button>
+    </form>
+    <button class="edit-button">Edit Details</button>
+    <section class="hide-me">
+      <%- include('../../layout/form', {formAction: 'update', book: book}) %>
+    </section>
+    <% }) %>
+  </ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+
+</html>
