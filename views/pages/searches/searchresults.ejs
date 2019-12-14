@@ -19,40 +19,28 @@
     <h4>Search Results</h4>
     <% searchResults.forEach( book => { %>
       <section class="book-info">
-        <% console.log('book: ', book); %>
         <section class="detail-partial" >
           <img src="<%= book.image %>" alt="<%= book.title %> Book Photo" title="<%= book.title %>" />
-          <h2 class="title"><%= book.title %> <h2>
+          <h2 class="title"><%= book.title %><h2>
           <% if(book.authors && book.authors.length > 0){ %>
             <h2 class="author"><%= book.authors.join(', ') %></h2>
           <% } %>
-          <% if(route !== '/'){ %>
+          <% if(route !== '/') { %>
             <p class="description"><%= book.description %></p>
-            <p class="isbn">ISBN: <%= book.isbn %></p>
-            <p class="shelf">Bookshelf: <%= book.bookshelf %></p>
+            <p class="isbn"><%= book.isbn %></p>
+            <p class="shelf">Bookshelf: <%= book.shelf %></p>
           <% }; %>
-          <% if(route === '/book'){ %>
+          <% if(route === '/book') { %>
             <form action="/book/<%=book.id%>" method="post">
               <input type="hidden" name="_method" value="delete">
               <input type="hidden" name="id" value="<%= book.id %>">
               <button type="submit">Delete Book</button>
             </form>
           <% }; %>
-        </section>
-        <button class="edit-button">Select this book</button>
-        <section class="hide-me">
-          <form action="<%- 'update' === formAction ? '/update/'+book.id : '/add' %>" method="post">
-            <h2><%- 'update' ===formAction ? "Update Book" : "Add a new Book" %></h2>
-            <input type="hidden" name="_method" value="<%- 'update' === formAction ? 'put' : 'post' %>">
-            <input type="hidden" name="id" value="<%=book.id%>">
-            <label>Book Title</label>
-            <input type="text" value="<%=book.title%>" name="title" placeholder="title">
-            <textarea name="description" placeholder="Describe the book" cols="30" rows="10"><%=book.description_book%></textarea>
-            <button>Submit</button>
-        </form>
+          <button><a href='/book/<%= book.id %>'>Select this book</a></button>
         </section>
       </section>
-    <% }) %>
+      <% }) %>
   </main>
   <footer>
     

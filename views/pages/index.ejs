@@ -27,7 +27,7 @@
                       <h2 class="author"><%= book.authors %> </h2>
                       <p class="description"><%= book.description %></p>
                       <p class="isbn"><%= book.isbn %></p>
-                      <p class="shelf">Bookshelf: <%= book.bookshelf %></p>
+                      <p class="shelf">Bookshelf: <%= book.shelf %></p>
                       <form action="/book/<%=book.id%>" method="post">
                         <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="id" value="<%= book.id %>">
